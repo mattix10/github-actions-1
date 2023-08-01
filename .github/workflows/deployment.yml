@@ -12,3 +12,27 @@ jobs:
         run: npm ci
       - name: Use linter
         run: npm run lint
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install NodeJS
+        uses: actions/checkout@v3
+        with:
+          node-version: 18
+      - name: Install deps
+        run: npm ci
+      - name: Test
+        run: npm run test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install NodeJS
+        uses: actions/checkout@v3
+        with:
+          node-version: 18
+      - name: Build app
+        run: npm ci
+      - name: Use linter
+        run: npm run build
